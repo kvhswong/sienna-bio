@@ -134,45 +134,48 @@ a:hover {
   z-index: 1;
 }
 
-/* Decorative floating shapes */
+/* Decorative floating blob shapes */
 .hero__decor {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.12;
   pointer-events: none;
+  filter: blur(60px);
 }
 
 .hero__decor--1 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--terracotta), transparent 70%);
-  top: -100px;
-  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: var(--terracotta);
+  opacity: 0.12;
+  top: -15%;
+  right: -10%;
   animation: float-drift 20s ease-in-out infinite alternate;
 }
 
 .hero__decor--2 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, var(--amber), transparent 70%);
-  bottom: -50px;
-  left: -80px;
+  width: 500px;
+  height: 500px;
+  background: var(--amber);
+  opacity: 0.15;
+  bottom: -10%;
+  left: -8%;
   animation: float-drift 25s ease-in-out infinite alternate-reverse;
 }
 
 .hero__decor--3 {
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, var(--sage), transparent 70%);
-  top: 30%;
-  left: 10%;
+  width: 450px;
+  height: 450px;
+  background: var(--sage);
+  opacity: 0.1;
+  top: 20%;
+  left: 15%;
   animation: float-drift 18s ease-in-out infinite alternate;
 }
 
 @keyframes float-drift {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(15px, -10px) scale(1.05); }
-  100% { transform: translate(-10px, 15px) scale(0.95); }
+  50% { transform: translate(25px, -20px) scale(1.08); }
+  100% { transform: translate(-20px, 25px) scale(0.92); }
 }
 
 /* Photo */
