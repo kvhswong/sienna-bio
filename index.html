@@ -61,6 +61,9 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x270D;</text></svg>">
 
+  <!-- Preload hero image -->
+  <link rel="preload" as="image" href="img/profile.webp" type="image/webp">
+
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
@@ -70,14 +73,17 @@
   <header class="hero">
     <div class="hero__inner">
       <div class="hero__photo-wrapper">
-        <img
-          src="img/profile.jpeg"
-          alt="Portrait of Sienna Wong, a poet, photographed outdoors in warm autumn light"
-          class="hero__photo"
-          width="400"
-          height="600"
-          fetchpriority="high"
-        >
+        <picture>
+          <source srcset="img/profile.webp" type="image/webp">
+          <img
+            src="img/profile.jpeg"
+            alt="Portrait of Sienna Wong, a poet, photographed outdoors in warm autumn light"
+            class="hero__photo"
+            width="400"
+            height="600"
+            fetchpriority="high"
+          >
+        </picture>
       </div>
       <h1 class="hero__name">Sienna Wong</h1>
       <p class="hero__subtitle">Poet</p>
@@ -131,12 +137,17 @@
         <h2 class="section-heading reveal">Published Work</h2>
         <article class="book-card reveal">
           <div class="book-card__cover">
-            <img
-              src="img/writing-from-the-end-of-the-world-cover.png"
-              alt="Book cover of Writing from the End of the World by Muriel Neill"
-              class="book-card__image"
-              loading="lazy"
-            >
+            <picture>
+              <source srcset="img/writing-from-the-end-of-the-world-cover.webp" type="image/webp">
+              <img
+                src="img/writing-from-the-end-of-the-world-cover.png"
+                alt="Book cover of Writing from the End of the World by Muriel Neill"
+                class="book-card__image"
+                width="914"
+                height="1396"
+                loading="lazy"
+              >
+            </picture>
           </div>
           <div class="book-card__content">
             <h3 class="book-card__title"><em>Writing from the End of the World</em></h3>

@@ -1,0 +1,81 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Sync to S3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install minification tools
+        run: npm install -g html-minifier-terser csso-cli terser
+
+      - name: Minify HTML
+        run: |
+          for f in $(find . -name '*.html' -not -path './.git/*'); do
+            html-minifier-terser \
+              --collapse-whitespace \
+              --remove-comments \
+              --remove-redundant-attributes \
+              --remove-script-type-attributes \
+              --remove-style-link-type-attributes \
+              --minify-css true \
+              --minify-js true \
+              -o "$f" "$f"
+          done
+
+      - name: Minify CSS
+        run: |
+          for f in $(find . -name '*.css' -not -path './.git/*'); do
+            csso "$f" -o "$f"
+          done
+
+      - name: Minify JS
+        run: |
+          for f in $(find . -name '*.js' -not -path './.git/*' -not -path './node_modules/*'); do
+            terser "$f" -o "$f" --compress --mangle
+          done
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Sync assets to S3 (long cache)
+        run: |
+          aws s3 sync . s3://sienna-wong.boxofwhite.com \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable" \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude ".claude/*" \
+            --exclude ".gitignore" \
+            --exclude ".envrc" \
+            --exclude "*.tf" \
+            --exclude ".terraform/*" \
+            --exclude ".terraform.lock.hcl" \
+            --exclude "terraform.tfstate*" \
+            --exclude "index.html"
+
+      - name: Upload HTML to S3 (short cache)
+        run: |
+          aws s3 cp index.html s3://sienna-wong.boxofwhite.com/index.html \
+            --cache-control "public, max-age=600"
