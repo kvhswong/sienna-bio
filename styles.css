@@ -428,6 +428,72 @@ a:hover {
   transform: translate(2px, -2px);
 }
 
+/* Individual Poems List */
+.poems-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  color: var(--espresso);
+  text-align: center;
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-4);
+}
+
+.poems-list {
+  list-style: none;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.poems-list__item {
+  border-bottom: 1px solid var(--mist);
+}
+
+.poems-list__item:first-child {
+  border-top: 1px solid var(--mist);
+}
+
+.poems-list__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2);
+  color: var(--espresso);
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.poems-list__link:hover {
+  background-color: var(--warm-white);
+  color: var(--terracotta);
+}
+
+.poems-list__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.poems-list__source {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--charcoal);
+  opacity: 0.6;
+}
+
+.poems-list__link svg {
+  flex-shrink: 0;
+  opacity: 0.4;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.poems-list__link:hover svg {
+  opacity: 1;
+  color: var(--terracotta);
+  transform: translate(2px, -2px);
+}
+
 /* ===========================
    Poetic Interlude
    =========================== */
