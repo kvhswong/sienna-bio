@@ -6,10 +6,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    time = {
-      source  = "hashicorp/time"
-      version = "~> 0.9"
-    }
   }
 }
 
@@ -26,52 +22,47 @@ resource "aws_s3_bucket" "website" {
   bucket = local.bucket_name
 }
 
-# Enable static website hosting
-resource "aws_s3_bucket_website_configuration" "website" {
-  bucket = aws_s3_bucket.website.id
-
-  index_document {
-    suffix = "index.html"
-  }
-
-  error_document {
-    key = "index.html"
-  }
-}
-
-# Make bucket publicly readable
+# Block all public access — only CloudFront can read from the bucket
 resource "aws_s3_bucket_public_access_block" "website" {
   bucket = aws_s3_bucket.website.id
 
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
-# Allow time for public access block settings to propagate
-resource "time_sleep" "wait_for_public_access" {
-  depends_on      = [aws_s3_bucket_public_access_block.website]
-  create_duration = "10s"
-}
-
+# Bucket policy allowing only CloudFront OAC to read objects
 resource "aws_s3_bucket_policy" "website" {
   bucket = aws_s3_bucket.website.id
 
-  depends_on = [time_sleep.wait_for_public_access]
+  depends_on = [aws_s3_bucket_public_access_block.website]
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "PublicReadGetObject"
+        Sid       = "AllowCloudFrontOAC"
         Effect    = "Allow"
-        Principal = "*"
+        Principal = { Service = "cloudfront.amazonaws.com" }
         Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.website.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.website.arn
+          }
+        }
       }
     ]
   })
+}
+
+# CloudFront Origin Access Control
+resource "aws_cloudfront_origin_access_control" "website" {
+  name                              = "${local.bucket_name}-oac"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
 # IAM policy scoped to this bucket and CloudFront distribution
@@ -87,8 +78,7 @@ resource "aws_iam_policy" "website_deploy" {
         Effect = "Allow"
         Action = [
           "s3:ListBucket",
-          "s3:GetBucketLocation",
-          "s3:GetBucketPolicy"
+          "s3:GetBucketLocation"
         ]
         Resource = aws_s3_bucket.website.arn
       },
@@ -171,6 +161,26 @@ resource "aws_acm_certificate" "website" {
   }
 }
 
+# CloudFront function to rewrite URIs to index.html (replaces S3 website hosting index document)
+resource "aws_cloudfront_function" "rewrite_uri" {
+  name    = "sienna-wong-rewrite-uri"
+  runtime = "cloudfront-js-2.0"
+  publish = true
+
+  code = <<-EOF
+    function handler(event) {
+      var request = event.request;
+      var uri = request.uri;
+      if (uri.endsWith('/')) {
+        request.uri += 'index.html';
+      } else if (!uri.includes('.')) {
+        request.uri += '/index.html';
+      }
+      return request;
+    }
+  EOF
+}
+
 # CloudFront distribution
 resource "aws_cloudfront_distribution" "website" {
   enabled             = true
@@ -181,24 +191,23 @@ resource "aws_cloudfront_distribution" "website" {
   depends_on = [aws_acm_certificate_validation.website]
 
   origin {
-    domain_name = aws_s3_bucket_website_configuration.website.website_endpoint
-    origin_id   = "S3-Website"
-
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
+    domain_name              = aws_s3_bucket.website.bucket_regional_domain_name
+    origin_id                = "S3-OAC"
+    origin_access_control_id = aws_cloudfront_origin_access_control.website.id
   }
 
   default_cache_behavior {
     allowed_methods            = ["GET", "HEAD"]
     cached_methods             = ["GET", "HEAD"]
-    target_origin_id           = "S3-Website"
+    target_origin_id           = "S3-OAC"
     viewer_protocol_policy     = "redirect-to-https"
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
     compress                   = true
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.rewrite_uri.arn
+    }
 
     forwarded_values {
       query_string = false
@@ -232,16 +241,6 @@ resource "aws_acm_certificate_validation" "website" {
 }
 
 # Outputs
-output "website_endpoint" {
-  description = "S3 static website endpoint"
-  value       = aws_s3_bucket_website_configuration.website.website_endpoint
-}
-
-output "website_url" {
-  description = "Full website URL"
-  value       = "http://${aws_s3_bucket_website_configuration.website.website_endpoint}"
-}
-
 output "cloudfront_domain" {
   description = "CloudFront distribution domain name"
   value       = aws_cloudfront_distribution.website.domain_name
