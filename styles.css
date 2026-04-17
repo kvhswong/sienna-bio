@@ -495,6 +495,72 @@ a:hover {
 }
 
 /* ===========================
+   Awards & Recognition
+   =========================== */
+.awards {
+  padding: var(--space-16) 0;
+  background-color: var(--warm-white);
+}
+
+.awards-list {
+  list-style: none;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.awards-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--space-2);
+  border-bottom: 1px solid var(--mist);
+}
+
+.awards-list__item:first-child {
+  border-top: 1px solid var(--mist);
+}
+
+.awards-list__year {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--terracotta);
+  opacity: 0.85;
+  min-width: 2.75rem;
+  padding-top: 0.2em;
+  flex-shrink: 0;
+}
+
+.awards-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.awards-list__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--espresso);
+}
+
+.awards-list__honor {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.awards-list__org {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--charcoal);
+  opacity: 0.55;
+}
+
+/* ===========================
    Poetic Interlude
    =========================== */
 .interlude {
@@ -636,6 +702,15 @@ a:hover {
 
   .section-heading {
     margin-bottom: var(--space-6);
+  }
+
+  .awards-list__item {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .awards-list__year {
+    font-size: 0.75rem;
   }
 }
 
