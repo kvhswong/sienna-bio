@@ -495,6 +495,123 @@ a:hover {
 }
 
 /* ===========================
+   Origin: First Poem (Age 8)
+   =========================== */
+.origin {
+  padding: var(--space-16) 0;
+  background:
+    radial-gradient(ellipse at top, rgba(242, 224, 212, 0.35), transparent 60%),
+    var(--warm-white);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.origin__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: var(--space-2);
+}
+
+.origin .section-heading {
+  font-style: italic;
+  margin-bottom: var(--space-3);
+}
+
+.origin__note {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  max-width: 540px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.7;
+}
+
+.origin__domain {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--terracotta);
+  white-space: nowrap;
+}
+
+.origin__poem {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+  background-color: var(--cream);
+  border: 1px solid var(--blush);
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 20px 50px -30px rgba(59, 47, 47, 0.25);
+}
+
+.origin__poem::before,
+.origin__poem::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--terracotta);
+  opacity: 0.5;
+}
+
+.origin__poem::before {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.origin__poem::after {
+  bottom: 10px;
+  right: 10px;
+  border-left: none;
+  border-top: none;
+}
+
+.origin__verse {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  color: var(--espresso);
+  font-weight: 400;
+}
+
+.origin__verse p {
+  margin-bottom: var(--space-4);
+}
+
+.origin__verse p:last-child {
+  margin-bottom: 0;
+}
+
+.origin__caption {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  color: var(--charcoal);
+  opacity: 0.65;
+  margin-top: var(--space-6);
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .origin__poem {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .origin__verse {
+    font-size: 1rem;
+    line-height: 1.8;
+    text-align: left;
+  }
+}
+
+/* ===========================
    Awards & Recognition
    =========================== */
 .awards {

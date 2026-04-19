@@ -73,6 +73,7 @@ jobs:
             --exclude ".terraform/*" \
             --exclude ".terraform.lock.hcl" \
             --exclude "terraform.tfstate*" \
+            --exclude "README.md" \
             --exclude "index.html"
 
       - name: Upload HTML to S3 (short cache)
