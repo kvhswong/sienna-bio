@@ -599,6 +599,65 @@ a:hover {
   font-style: italic;
 }
 
+.origin__title {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--espresso);
+  opacity: 0.85;
+  margin-bottom: var(--space-2);
+  letter-spacing: 0.01em;
+}
+
+.origin__byline {
+  display: block;
+}
+
+.origin__return {
+  display: inline-block;
+  margin-top: var(--space-12);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--charcoal);
+  opacity: 0.4;
+  text-decoration: none;
+  transition: opacity var(--transition-base);
+}
+
+.origin__return:hover,
+.origin__return:focus {
+  opacity: 0.85;
+  color: var(--terracotta);
+}
+
+/* Dedicated origin page: center content vertically, full viewport */
+body.origin-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at top, rgba(242, 224, 212, 0.4), transparent 60%),
+    var(--cream);
+}
+
+body.origin-page .origin {
+  background: transparent;
+  padding: var(--space-12) 0;
+}
+
+.origin-page__footer {
+  border-top: none;
+  padding: var(--space-4) 0 var(--space-8);
+  opacity: 0.5;
+  transition: opacity var(--transition-base);
+}
+
+.origin-page__footer:hover {
+  opacity: 1;
+}
+
 @media (max-width: 480px) {
   .origin__poem {
     padding: var(--space-6) var(--space-4);
@@ -708,6 +767,30 @@ a:hover {
   padding: var(--space-8) 0 var(--space-6);
   text-align: center;
   border-top: 1px solid var(--mist);
+}
+
+.footer__logo-link {
+  display: inline-block;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.footer__logo-link:focus,
+.footer__logo-link:focus-visible,
+.footer__logo-link:hover,
+.footer__logo-link:active {
+  outline: none;
+}
+
+.footer__logo {
+  display: block;
+  margin: 0 auto var(--space-3);
+  color: var(--espresso);
+  transition: color var(--transition-base);
+}
+
+.footer__logo-link:hover .footer__logo {
+  color: var(--terracotta);
 }
 
 .footer__name {
