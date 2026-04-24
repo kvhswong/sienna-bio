@@ -760,6 +760,24 @@ body.origin-page .origin {
   letter-spacing: 0.01em;
 }
 
+.interlude__figure {
+  margin: 0;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.interlude__attribution {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--charcoal);
+  opacity: 0.6;
+  margin-top: var(--space-6);
+  font-style: italic;
+  display: block;
+}
+
 /* ===========================
    Footer
    =========================== */

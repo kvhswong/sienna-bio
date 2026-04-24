@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Keep the copyright year current without a redeploy.
+  const year = new Date().getFullYear();
+  document.querySelectorAll('.js-year').forEach((el) => {
+    el.textContent = year;
+  });
+
   const reveals = document.querySelectorAll('.reveal');
 
   const observer = new IntersectionObserver(
