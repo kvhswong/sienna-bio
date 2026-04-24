@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(242, 224, 212, 0.55), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(196, 136, 109, 0.12), transparent 55%),
+      #FAF6F1;
+    color: #3B2F2F;
+    display: flex;
+    align-items: center;
+    padding: 0 110px;
+  }
+  .logo {
+    flex: 0 0 220px;
+    color: #3B2F2F;
+    opacity: 0.9;
+    margin-right: 80px;
+  }
+  .logo svg { width: 220px; height: 220px; display: block; }
+  .text { flex: 1; }
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 116px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: #3B2F2F;
+    margin-bottom: 24px;
+  }
+  .role {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #C4886D;
+    margin-bottom: 44px;
+  }
+  .tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.4;
+    color: #5C4F4F;
+    max-width: 640px;
+    opacity: 0.85;
+  }
+  .domain {
+    position: absolute;
+    right: 110px;
+    bottom: 56px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: #C4886D;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+  <div class="logo">
+    <svg viewBox="0 0 100 100" fill="none">
+      <g stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.7" fill="none">
+        <path d="M 50 25 L 76 40 L 50 55 L 24 40 Z"/>
+        <path d="M 76 40 L 50 55 L 50 82 L 76 67 Z"/>
+        <path d="M 24 40 L 50 55 L 50 82 L 24 67 Z"/>
+      </g>
+      <path d="M 50 52 L 76 67 L 50 82 L 24 67 Z"
+            fill="currentColor" fill-opacity="0.1"
+            stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <g stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.55">
+        <line x1="47" y1="60" x2="64" y2="69"/>
+        <line x1="42" y1="63" x2="57" y2="71"/>
+        <line x1="37" y1="66" x2="54" y2="75"/>
+        <line x1="33" y1="68" x2="42" y2="73"/>
+      </g>
+    </svg>
+  </div>
+  <div class="text">
+    <div class="name">Sienna Wong</div>
+    <div class="role">Poet</div>
+    <div class="tag">i love you / let&rsquo;s rest</div>
+  </div>
+  <div class="domain">boxofwhite.com</div>
+</body>
+</html>
