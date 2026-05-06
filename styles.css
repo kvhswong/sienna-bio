@@ -110,6 +110,11 @@ a:hover {
   background: linear-gradient(90deg, transparent, var(--blush), var(--terracotta), var(--blush), transparent);
 }
 
+/* Inset variant: sits between two same-bg sections (e.g. press + awards) */
+.divider--inset {
+  background-color: var(--warm-white);
+}
+
 /* ===========================
    Hero
    =========================== */
@@ -671,6 +676,86 @@ body.origin-page .origin {
 }
 
 /* ===========================
+   Press
+   =========================== */
+.press {
+  padding: var(--space-16) 0;
+  background-color: var(--warm-white);
+}
+
+.press-list {
+  list-style: none;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.press-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--space-2);
+  border-bottom: 1px solid var(--mist);
+}
+
+.press-list__item:first-child {
+  border-top: 1px solid var(--mist);
+}
+
+.press-list__date {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--terracotta);
+  opacity: 0.85;
+  min-width: 5.5rem;
+  padding-top: 0.2em;
+  flex-shrink: 0;
+}
+
+.press-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.press-list__link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  text-decoration: none;
+  color: var(--espresso);
+  transition: color var(--transition-base);
+}
+
+.press-list__link:hover {
+  color: var(--terracotta);
+}
+
+.press-list__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.press-list__source {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.press-list__note {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--charcoal);
+  opacity: 0.65;
+  line-height: 1.5;
+  margin-top: var(--space-1);
+}
+
+/* ===========================
    Awards & Recognition
    =========================== */
 .awards {
@@ -922,12 +1007,14 @@ body.origin-page .origin {
     margin-bottom: var(--space-6);
   }
 
-  .awards-list__item {
+  .awards-list__item,
+  .press-list__item {
     flex-direction: column;
     gap: var(--space-1);
   }
 
-  .awards-list__year {
+  .awards-list__year,
+  .press-list__date {
     font-size: 0.75rem;
   }
 }
